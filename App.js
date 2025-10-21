@@ -1,13 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import "./global.css"
 
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import AuthContextProvider from './store/auth-context';
-import FriendsPage from './screens/FriendsScreen';
+import FriendsScreen from './screens/FriendsScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { Colors } from './constants/styles';
 import { useContext, useEffect, useState, useCallback } from 'react';
@@ -16,6 +18,8 @@ import IconButton from './components/ui/IconButton';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
+
+const MyTabs = createBottomTabNavigator();
 
 function AuthStack() {
   return (
@@ -61,12 +65,28 @@ function AuthenticatedStack() {
       />
       <Stack.Screen
         name="Friends"
-        component={FriendsPage}
+        component={TabStack}
         options={{ title: 'Amici Steam' }}
       />
     </Stack.Navigator>
   );
 }
+
+function TabStack() {
+  return (
+    <MyTabs.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: 'white',
+        contentStyle: { backgroundColor: Colors.primary100 },
+      }}
+    >
+      <MyTabs.Screen name="Friends" component={FriendsScreen} />
+      <MyTabs.Screen name="Profile" component={ProfileScreen} />
+    </MyTabs.Navigator>
+  );
+}
+
 
 function Navigation() {
   const authCtx = useContext(AuthContext);

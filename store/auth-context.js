@@ -38,23 +38,37 @@ function AuthContextProvider({ children }) {
 
     async function authenticate(token, steamIdParam = null) {
         try {
+            console.log('🔐 authenticate() chiamata con:', { token: !!token, steamId: steamIdParam });
             setAuthToken(token);
-            if (steamIdParam) setSteamId(steamIdParam);
+
+            // Aggiorna steamId: se undefined mantieni il valore corrente, se null rimuovilo, altrimenti impostalo
+            if (steamIdParam === null) {
+                console.log('🗑️ Rimozione steamId...');
+                setSteamId(null);
+                await AsyncStorage.removeItem('steamId');
+            } else if (steamIdParam !== undefined) {
+                console.log('💾 Impostando steamId:', steamIdParam);
+                setSteamId(steamIdParam);
+                await AsyncStorage.setItem('steamId', steamIdParam);
+            }
+
             await AsyncStorage.setItem('token', token);
-            if (steamIdParam) await AsyncStorage.setItem('steamId', steamIdParam);
+            console.log('✅ Auth aggiornata');
         } catch (err) {
-            console.log('Error storing auth:', err);
+            console.log('❌ Error storing auth:', err);
         }
     }
 
     async function logout() {
         try {
+            console.log('🚪 Logout completo (email + Steam)...');
             setAuthToken(null);
             setSteamId(null);
             await AsyncStorage.removeItem('token');
             await AsyncStorage.removeItem('steamId');
+            console.log('✅ Logout completato');
         } catch (err) {
-            console.log('Error clearing auth:', err);
+            console.log('❌ Error clearing auth:', err);
         }
     }
 
