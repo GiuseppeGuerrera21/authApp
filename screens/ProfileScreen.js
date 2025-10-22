@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, ScrollView, Text, TouchableOpacity, Switch } from 'react-native';
+import { useState, useContext } from 'react';
+import { View, ScrollView, Text, TouchableOpacity, Switch, Alert } from 'react-native';
 import {
     User,
     Mail,
@@ -11,8 +11,10 @@ import {
     ChevronRight,
     CheckCircle,
 } from 'lucide-react-native';
+import { AuthContext } from '../store/auth-context';
 
 const Profilo = () => {
+    const authCtx = useContext(AuthContext);
     const [notificationsEnabled, setNotificationsEnabled] = useState(true);
     const accountStatus = 'active';
     const userData = {
@@ -199,7 +201,23 @@ const Profilo = () => {
                 </View>
 
                 {/* Logout */}
-                <TouchableOpacity className="flex-row items-center justify-center p-4 rounded-xl bg-error/10 active:bg-error/20 mt-2.5">
+                <TouchableOpacity
+                    onPress={() => {
+                        Alert.alert(
+                            'Disconnetti Steam',
+                            'Vuoi disconnettere il tuo account Steam? Dovrai riconnetterlo per continuare a usare l\'app.',
+                            [
+                                { text: 'Annulla', style: 'cancel' },
+                                {
+                                    text: 'Disconnetti',
+                                    style: 'destructive',
+                                    onPress: () => authCtx.disconnectSteam()
+                                }
+                            ]
+                        );
+                    }}
+                    className="flex-row items-center justify-center p-4 rounded-xl bg-error/10 active:bg-error/20 mt-2.5"
+                >
                     <LogOut size={18} color="#EF4444" />
                     <Text className="text-error font-semibold ml-2.5">
                         Esci dall'account

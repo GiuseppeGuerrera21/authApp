@@ -15,10 +15,9 @@ import AuthContextProvider from './store/auth-context';
 import FriendsScreen from './screens/FriendsScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 import { Colors } from './constants/styles';
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from './store/auth-context';
 import IconButton from './components/ui/IconButton';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 
@@ -168,21 +167,10 @@ function Navigation() {
 }
 
 function Root() {
-  const [isTryingLogin, setIsTryingLogin] = useState(true);
   const authCtx = useContext(AuthContext);
 
-  useEffect(() => {
-    async function fetchToken() {
-      const storedToken = await AsyncStorage.getItem('token');
-      if (storedToken) {
-        authCtx.authenticate(storedToken);
-      }
-      setIsTryingLogin(false);
-    }
-    fetchToken();
-  }, []);
-
-  if (isTryingLogin) {
+  // Usa isLoading dal context invece di gestire uno stato separato
+  if (authCtx.isLoading) {
     return <AppLoading />
   }
 
