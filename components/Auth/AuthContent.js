@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AuthForm from './AuthForm';
 import Button from '../ui/Button';
 import FlatButton from '../ui/FlatButton';
+import { Colors } from '../../constants/styles';
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
@@ -60,15 +61,32 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   return (
-    <View className="flex-1 justify-center px-6 bg-black">
-      <Text className="text-center text-4xl font-bold text-white mb-4">
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        paddingHorizontal: 24,
+        backgroundColor: Colors.primary500,
+      }}
+    >
+      <Text style={{ textAlign: 'center', fontSize: 32, fontWeight: 'bold', color: Colors.text, marginBottom: 8 }}>
         {isLogin ? 'Welcome Back' : 'Register'}
       </Text>
-      <Text className="text-center text-base text-white opacity-80 mb-6">
+      <Text style={{ textAlign: 'center', fontSize: 16, color: Colors.textSecondary, marginBottom: 24 }}>
         {isLogin ? 'Login to your account' : 'Create your new account'}
       </Text>
 
-      <View className="bg-[#111111] p-6 rounded-xl shadow-lg mb-6">
+      <View
+        style={{
+          backgroundColor: Colors.surface,
+          padding: 24,
+          borderRadius: 12,
+          shadowColor: '#000',
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
+          marginBottom: 24,
+        }}
+      >
         <AuthForm
           isLogin={isLogin}
           onSubmit={submitHandler}
@@ -76,42 +94,70 @@ function AuthContent({ isLogin, onAuthenticate }) {
         />
       </View>
 
-      <FlatButton className="text-center text-white opacity-80 mb-6">
-        Forgot your password?
+      <FlatButton>
+        <Text style={{ textAlign: 'center', color: Colors.textSecondary, marginBottom: 20 }}>
+          Forgot your password?
+        </Text>
       </FlatButton>
 
       {!isLogin && (
         <>
-          <View className="flex-row items-center my-4">
-            <View className="flex-1 h-px bg-white opacity-20" />
-            <Text className="text-white opacity-50 px-3 text-sm">or continue with</Text>
-            <View className="flex-1 h-px bg-white opacity-20" />
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16 }}>
+            <View style={{ flex: 1, height: 1, backgroundColor: Colors.border }} />
+            <Text style={{ color: Colors.textSecondary, paddingHorizontal: 8, fontSize: 12 }}>
+              or continue with
+            </Text>
+            <View style={{ flex: 1, height: 1, backgroundColor: Colors.border }} />
           </View>
 
-          <View className="flex-row justify-center gap-5 mb-4">
-            <TouchableOpacity className="w-14 h-14 rounded-full bg-[#222222] justify-center items-center border border-white/10">
-              <Icon name="google" size={24} color="white" />
+          <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 20, marginBottom: 16 }}>
+            <TouchableOpacity
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 28,
+                backgroundColor: Colors.surface,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.border,
+              }}
+            >
+              <Icon name="google" size={24} color={Colors.text} />
             </TouchableOpacity>
 
-            <TouchableOpacity className="w-14 h-14 rounded-full bg-[#222222] justify-center items-center border border-white/10">
-              <Icon name="apple" size={24} color="white" />
+            <TouchableOpacity
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 28,
+                backgroundColor: Colors.surface,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderWidth: 1,
+                borderColor: Colors.border,
+              }}
+            >
+              <Icon name="apple" size={24} color={Colors.text} />
             </TouchableOpacity>
           </View>
         </>
       )}
 
-      <View className="flex-row justify-center mt-6">
-        <Text className="text-white opacity-70 text-center">
-          {isLogin ? "Don't have an account? " : 'Already have an account?'}
+      <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 16 }}>
+        <Text style={{ color: Colors.textSecondary }}>
+          {isLogin ? "Don't have an account? " : 'Already have an account? '}
         </Text>
         <FlatButton onPress={switchAuthModeHandler}>
-          {isLogin ? ' Sign up' : ' Log in'}
+          <Text style={{ color: Colors.accentLight, fontWeight: 'bold' }}>
+            {isLogin ? 'Sign up' : 'Log in'}
+          </Text>
         </FlatButton>
       </View>
 
       {isLogin && (
-        <Button className="mt-5" onPress={handleDemoLogin}>
-          Trying Demo
+        <Button onPress={handleDemoLogin} style={{ backgroundColor: Colors.accent, marginTop: 24 }}>
+          <Text style={{ color: Colors.text, fontWeight: 'bold' }}>Try Demo</Text>
         </Button>
       )}
     </View>

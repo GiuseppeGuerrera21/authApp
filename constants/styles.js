@@ -1,6 +1,12 @@
 export const Colors = {
-  primary100: '#610440',
   primary500: '#22181C',
-  error100: '#fcdcbf',
-  error500: '#f37c13',
-}
+  surface: '#2D2328',
+  accent: '#E63946',
+  accentLight: '#FF7B89',
+  text: '#F1F1F1',
+  textSecondary: '#B5A8AC',
+  border: '#3C3036',
+  inputBg: '#1C1418',
+  success: '#4ADE80',
+  error: '#EF4444',
+};

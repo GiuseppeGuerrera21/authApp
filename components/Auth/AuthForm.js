@@ -1,9 +1,9 @@
 import { View, Text } from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-
 import Input from './Input';
 import Button from '../ui/Button';
+import { Colors } from '../../constants/styles';
 
 function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   const [enteredName, setEnteredName] = useState('');
@@ -41,7 +41,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   }
 
   return (
-    <View className="w-full">
+    <View style={{ width: '100%' }}>
       {!isLogin && (
         <Input
           label="Name"
@@ -68,12 +68,20 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         secureVisible={passwordVisible}
       />
 
-      <Button onPress={submitHandler} className="mt-5">
-        <View className="flex-row items-center justify-center space-x-2">
-          <Text className="text-white font-bold text-base">
+      <Button
+        onPress={submitHandler}
+        style={{
+          marginTop: 20,
+          backgroundColor: Colors.accent,
+          paddingVertical: 12,
+          borderRadius: 8,
+        }}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+          <Text style={{ color: Colors.text, fontWeight: 'bold', fontSize: 16 }}>
             {isLogin ? 'Login' : 'Sign up'}
           </Text>
-          <Ionicons name="arrow-forward" size={20} color="white" />
+          <Ionicons name="arrow-forward" size={20} color={Colors.text} />
         </View>
       </Button>
     </View>

@@ -152,23 +152,23 @@ export default function FriendsScreen() {
 
     if (loading) {
         return (
-            <View className="flex-1 justify-center items-center bg-gray-900">
-                <ActivityIndicator size="large" color="#00aced" />
-                <Text className="text-white mt-4 text-base">Caricamento amici...</Text>
+            <View className="flex-1 justify-center items-center bg-[#22181C]">
+                <ActivityIndicator size="large" color="#DBEAFE" />
+                <Text className="text-text mt-4 text-base">Caricamento amici...</Text>
             </View>
         );
     }
 
     if (error) {
         return (
-            <View className="flex-1 justify-center items-center bg-gray-900 px-5">
+            <View className="flex-1 justify-center items-center bg-[#22181C] px-5">
                 <Text className="text-6xl mb-5">⚠️</Text>
-                <Text className="text-red-500 text-base text-center mb-5">{error}</Text>
+                <Text className="text-error text-base text-center mb-5">{error}</Text>
                 <TouchableOpacity
-                    className="bg-[#00aced] py-3 px-8 rounded-lg"
+                    className="bg-primary700 py-3 px-8 rounded-lg"
                     onPress={fetchFriends}
                 >
-                    <Text className="text-white font-bold">Riprova</Text>
+                    <Text className="text-primary100 font-bold">Riprova</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -176,10 +176,10 @@ export default function FriendsScreen() {
 
     if (friends.length === 0) {
         return (
-            <View className="flex-1 justify-center items-center bg-gray-900 px-5">
+            <View className="flex-1 justify-center items-center bg-[#22181C] px-5">
                 <Text className="text-6xl mb-5">👥</Text>
-                <Text className="text-white text-xl font-bold mb-2">Nessun amico trovato</Text>
-                <Text className="text-gray-400 text-sm text-center">
+                <Text className="text-text text-xl font-bold mb-2">Nessun amico trovato</Text>
+                <Text className="text-slate-400 text-sm text-center">
                     Il profilo potrebbe essere privato
                 </Text>
             </View>
@@ -189,10 +189,10 @@ export default function FriendsScreen() {
     const onlineFriends = friends.filter(f => f.personastate > 0).length;
 
     return (
-        <View className="flex-1 bg-gray-900">
-            <View className="pt-14 pb-5 px-5 bg-gray-800 border-b border-gray-700">
-                <Text className="text-white text-3xl font-bold mb-1">I tuoi amici</Text>
-                <Text className="text-gray-400 text-sm">
+        <View className="flex-1 bg-[#22181C]">
+            <View className="pt-14 pb-5 px-5 bg-slate-800 border-b border-slate-700">
+                <Text className="text-text text-3xl font-bold mb-1">I tuoi amici</Text>
+                <Text className="text-slate-400 text-sm">
                     {friends.length} amici • {onlineFriends} online
                 </Text>
             </View>
@@ -201,27 +201,27 @@ export default function FriendsScreen() {
                 data={friends}
                 keyExtractor={(item) => item.steamid}
                 renderItem={({ item }) => (
-                    <View className="flex-row items-center mb-3 bg-gray-800 p-3.5 rounded-xl mx-4">
+                    <View className="flex-row items-center mb-3 bg-slate-800 p-3.5 rounded-xl mx-4 shadow-lg">
                         <View className="relative">
                             <Image
                                 source={{ uri: item.avatarfull }}
-                                className="w-15 h-15 rounded-full border-2 border-gray-700"
+                                className="w-15 h-15 rounded-full border-2 border-primary700/20"
                                 style={{ width: 60, height: 60 }}
                             />
                             {item.personastate > 0 && (
-                                <View className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-gray-800 ${getStatusBgColor(item.personastate)}`} />
+                                <View className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-slate-800 ${getStatusBgColor(item.personastate)}`} />
                             )}
                         </View>
 
                         <View className="flex-1 ml-4">
-                            <Text className="text-white text-base font-bold" numberOfLines={1}>
+                            <Text className="text-text text-base font-bold" numberOfLines={1}>
                                 {item.personaname}
                             </Text>
                             <Text className={`text-sm mt-1 ${getStatusColor(item.personastate)}`}>
                                 {getStatusText(item.personastate)}
                             </Text>
                             {item.gameextrainfo && (
-                                <Text className="text-gray-400 text-xs mt-1 italic" numberOfLines={1}>
+                                <Text className="text-slate-400 text-xs mt-1 italic" numberOfLines={1}>
                                     🎮 {item.gameextrainfo}
                                 </Text>
                             )}
@@ -232,8 +232,8 @@ export default function FriendsScreen() {
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={onRefresh}
-                        tintColor="#00aced"
-                        colors={["#00aced"]}
+                        tintColor="#DBEAFE"
+                        colors={["#DBEAFE"]}
                     />
                 }
                 contentContainerStyle={{ paddingVertical: 16 }}

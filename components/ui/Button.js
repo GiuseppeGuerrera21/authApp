@@ -1,16 +1,17 @@
 import { Pressable, Text, View } from 'react-native';
 import { Colors } from '../../constants/styles';
 
+function Button({ children, onPress, className }) {
+  const baseClasses = "bg-accent rounded-xl py-3 px-5 shadow-md active:opacity-80";
+  const combinedClasses = className ? `${baseClasses} ${className}` : baseClasses;
 
-function Button({ children, onPress }) {
   return (
     <Pressable
-      className="rounded-md bg-primary100 shadow-md py-2 px-3"
-      style={({ pressed }) => pressed && { opacity: 0.7 }}
       onPress={onPress}
+      className={combinedClasses}
     >
       <View>
-        <Text className="text-center text-white text-base font-bold">
+        <Text className="text-text text-center font-bold text-base">
           {children}
         </Text>
       </View>

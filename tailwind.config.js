@@ -10,10 +10,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary100: '#610440',
-        primary700: '#DBEAFE',
-        text: '#ffffff',
-        error: '#EF4444',
+        primary500: "#22181C",
+        surface: "#2D2328",
+        accent: "#E63946",
+        accentLight: "#FF7B89",
+        text: "#F1F1F1",
+        textSecondary: "#B5A8AC",
+        border: "#3C3036",
+        inputBg: "#1C1418",
+        success: "#4ADE80",
+        error: "#EF4444",
       },
     },
   },

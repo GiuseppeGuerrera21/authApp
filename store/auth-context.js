@@ -7,7 +7,8 @@ export const AuthContext = createContext({
     isAuthenticated: false,
     isLoading: true,
     authenticate: (token, steamId) => { },
-    logout: () => { }
+    logout: () => { },
+    disconnectSteam: () => { }
 });
 
 function AuthContextProvider({ children }) {
@@ -72,13 +73,25 @@ function AuthContextProvider({ children }) {
         }
     }
 
+    async function disconnectSteam() {
+        try {
+            console.log('🔌 Disconnessione solo Steam...');
+            setSteamId(null);
+            await AsyncStorage.removeItem('steamId');
+            console.log('✅ Steam disconnesso');
+        } catch (err) {
+            console.log('❌ Error disconnecting Steam:', err);
+        }
+    }
+
     const value = {
         token: authToken,
         steamId,
         isAuthenticated: !!authToken,
         isLoading,
         authenticate,
-        logout
+        logout,
+        disconnectSteam
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
